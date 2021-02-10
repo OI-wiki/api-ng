@@ -1,5 +1,5 @@
 [package]
-name = "OI-Wiki-api"
+name = "oi_wiki_api"
 version = "0.1.0"
 authors = ["mgt <mgt@oi-wiki.org>"]
 edition = "2018"
@@ -7,3 +7,10 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+tokio = { version = "1", features = ["full"] }
+warp = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_yaml = "0.8"
+log = "0.4"
+pretty_env_logger = "0.4"
+pulldown-cmark = { version = "0.8", default-features = false, features = ["simd"] }
