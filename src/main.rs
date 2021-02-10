@@ -15,15 +15,6 @@ async fn main() {
     let config_route = warp::any().map(move || config_move.clone());
     let cors = warp::cors()
         .allow_any_origin()
-        .allow_headers(vec![
-            "User-Agent",
-            "Sec-Fetch-Mode",
-            "Referer",
-            "Origin",
-            "Access-Control-Request-Method",
-            "Access-Control-Request-Headers",
-            "content-type",
-        ])
         .allow_methods(vec!["POST", "GET"]);
     let preview_route = warp::get()
         .and(warp::path("preview"))
