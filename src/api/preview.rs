@@ -4,7 +4,6 @@ use serde::{Deserialize, Serialize};
 use warp::{http, Rejection, Reply};
 
 use crate::config::Config;
-use crate::markdown;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Parameter {
@@ -13,7 +12,7 @@ pub struct Parameter {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Response {
-    pub html: String,
+    pub text: String,
     pub title: String,
 }
 
@@ -52,14 +51,22 @@ pub async fn preview(param: Parameter, config: Config) -> Result<warp::reply::Re
                 split_count < 2
             })
             .map(|l| l.trim())
-            .filter(|l| !l.starts_with("author:") && !l.starts_with('#'))
+            .filter(|l| {
+                !l.starts_with("author:")
+                    && !l.starts_with('#')
+                    && !l.starts_with("!!!")
+                    && !l.starts_with("???")
+            })
             .skip(1)
             .take(config.preview_lines.try_into().unwrap())
             .map(|l| l.to_string())
             .collect::<Vec<String>>()
-            .join("\n");
-        let html = markdown::render(lines);
-        return Ok(warp::reply::json(&Response { html, title }).into_response());
+            .join("\n")
+            .chars()
+            .filter(|c| *c != '$')
+            .collect();
+        let text = strip_markdown::strip_markdown(&lines);
+        return Ok(warp::reply::json(&Response { text, title }).into_response());
     }
     Ok(
         warp::reply::with_status(String::from("not found"), http::StatusCode::NOT_FOUND)

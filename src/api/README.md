@@ -5,11 +5,11 @@
 ### GET
 
 ```
-GET /preview?path=%2Fmath%2Fpoly%2Ffwt HTTP/1.1
+GET /preview?path=%2Fmath%2Fpoly%2Ffft HTTP/1.1
 
 {
-    "html": "<p>（本文转载自 <a href=\"https://zhuanlan.zhihu.com/c_1005817911142838272\">桃酱的算法笔记</a> ，原文戳 <a href=\"https://zhuanlan.zhihu.com/p/41867199\">链接</a> ，已获得作者授权）</p>\n<h2>简介</h2>\n<blockquote>\n<p>沃尔什转换（Walsh Transform）是在频谱分析上作为离散傅立叶变换的替代方案的一种方法。—— <a href=\"https://zh.wikipedia.org/zh-cn/%E6%B2%83%E7%88%BE%E4%BB%80%E8%BD%89%E6%8F%9B\">维基百科</a> </p>\n</blockquote>\n<p>其实这个变换在信号处理中应用很广泛，fft 是 double 类型的，但是 walsh 把信号在不同震荡频率方波下拆解，因此所有的系数都是绝对值大小相同的整数，这使得不需要作浮点数的乘法运算，提高了运算速度。</p>\n",
-    "title": "快速沃尔什变换"
+    "text": "前置知识：复数。本文将介绍一种算法，它支持在 O(n\\log n) 的时间内计算两个 n 度的多项式的乘法，比朴素的 O(n^2) 算法更高效。由于两个整数的乘法也可以被当作多项式乘法，因此这个算法也可以用来加速大整数的乘法计算。离散傅里叶变换（Discrete Fourier Transform，缩写为 DFT），是傅里叶变换在时域和频域上都呈离散的形式，将信号的时域采样变换为其 DTFT 的频域采样。FFT 是一种高效实现 DFT 的算法，称为快速傅立叶变换（Fast Fourier Transform，FFT）。它对傅里叶变换的理论并没有新的发现，但是对于在计算机系统或者说数字系统中应用离散傅立叶变换，可以说是进了一大步。快速数论变换 (NTT) 是快速傅里叶变换（FFT）在数论基础上的实现。",
+    "title": "快速傅里叶变换"
 }
 ```
 
