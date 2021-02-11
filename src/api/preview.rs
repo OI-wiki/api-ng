@@ -51,6 +51,8 @@ pub async fn preview(param: Parameter, config: Config) -> Result<warp::reply::Re
                 }
                 split_count < 2
             })
+            .map(|l| l.trim())
+            .filter(|l| !l.starts_with("author:") && !l.starts_with('#'))
             .skip(1)
             .take(config.preview_lines.try_into().unwrap())
             .map(|l| l.to_string())
