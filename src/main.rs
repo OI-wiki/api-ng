@@ -20,6 +20,6 @@ async fn main() {
         .and(warp::query::<preview::Parameter>())
         .and(config_route)
         .and_then(preview::preview);
-    let route = preview_route.with(cors);
+    let route = preview_route.with(cors).with(warp::log("wiki-api"));
     warp::serve(route).run((config.ip, config.port)).await;
 }
