@@ -3,7 +3,7 @@ use std::convert::TryInto;
 use serde::{Deserialize, Serialize};
 use warp::{http, Rejection, Reply};
 
-use crate::config::Config;
+use crate::{config::Config, file_cache::FileCache};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Parameter {
@@ -16,15 +16,19 @@ pub struct Response {
     pub title: String,
 }
 
-pub async fn preview(param: Parameter, config: Config) -> Result<warp::reply::Response, Rejection> {
+pub async fn preview(
+    param: Parameter,
+    config: Config,
+    cache: FileCache,
+) -> Result<warp::reply::Response, Rejection> {
     let path = format!(
         "{}/docs{}.md",
         config.repo_path,
         param.path.trim_end_matches('/')
     );
     log::debug!("{}", path);
-    let file = tokio::fs::read_to_string(path).await;
-    if let Ok(t) = file {
+    let file = cache.cached_get(path).await;
+    if let Some(t) = file {
         let mut split_count: u32 = 0;
         let title: String = t
             .lines()

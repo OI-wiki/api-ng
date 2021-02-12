@@ -2,3 +2,4 @@ ip: 0.0.0.0
 port: 2783
 repo_path: ../oiwiki-bootstrap/cauldron/
 preview_lines: 10
+lru_cap: 50

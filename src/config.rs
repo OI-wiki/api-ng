@@ -11,6 +11,7 @@ pub struct Config {
     pub port: u16,
     pub repo_path: String,
     pub preview_lines: i32,
+    pub lru_cap: usize,
 }
 
 impl Default for Config {
@@ -20,6 +21,7 @@ impl Default for Config {
             port: 2783,
             repo_path: "./OI-Wiki".to_string(),
             preview_lines: 5,
+            lru_cap: 50,
         }
     }
 }
