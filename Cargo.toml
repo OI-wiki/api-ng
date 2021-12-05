@@ -16,4 +16,4 @@ log = "0.4"
 pretty_env_logger = "0.4"
 strip_markdown = "0.2"
 chrono = { version = "0.4", features = ["serde"]}
-lru = "0.6.4"
+lru = "0.7"
