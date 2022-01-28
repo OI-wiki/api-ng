@@ -27,7 +27,7 @@ pub async fn preview(
     param.path.trim_end_matches('/')
   );
   log::debug!("reading {}", path);
-  let file = cache.cached_get(path).await;
+  let file = cache.direct_get(path).await;
   if let Some(t) = file {
     let mut split_count: u32 = 0;
     let title: String = t

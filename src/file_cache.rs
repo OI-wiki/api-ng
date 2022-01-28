@@ -11,6 +11,13 @@ unsafe impl Sync for FileCache {}
 unsafe impl Send for FileCache {}
 
 impl FileCache {
+  pub async fn direct_get(&self, path: String) -> Option<String> {
+    let file = tokio::fs::read_to_string(path.clone()).await;
+    match file {
+        Ok(s) => Some(s),
+        Err(_) => None,
+    }
+  }
   #[allow(clippy::await_holding_lock)]
   pub async fn cached_get(&self, path: String) -> Option<String> {
     let mut lock = self.lru_data.lock().await;
