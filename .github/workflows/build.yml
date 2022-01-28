@@ -10,14 +10,14 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            artifact_name: oi-wiki-api
-            asset_name: oi-wiki-api-linux-amd64
+            artifact_name: oi_wiki_api
+            asset_name: oi_wiki_api-linux-amd64
           - os: windows-latest
-            artifact_name: oi-wiki-api.exe
-            asset_name: oi-wiki-api-windows-amd64.exe
+            artifact_name: oi_wiki_api.exe
+            asset_name: oi_wiki_api-windows-amd64.exe
           - os: macos-latest
-            artifact_name: oi-wiki-api
-            asset_name: oi-wiki-api-macos-amd64
+            artifact_name: oi_wiki_api
+            asset_name: oi_wiki_api-macos-amd64
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/cargo@v1
