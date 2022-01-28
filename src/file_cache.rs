@@ -16,7 +16,7 @@ impl FileCache {
     let mut lock = self.lru_data.lock().await;
     let data = lock.get(&path);
     if data.is_none() {
-      log::info!("cache miss for {}", &path);
+      log::debug!("cache miss for {}", &path);
       drop(lock);
       let file = tokio::fs::read_to_string(path.clone()).await;
       if file.is_err() {
@@ -27,7 +27,7 @@ impl FileCache {
       lock.put(path, file.clone());
       return Some(file);
     }
-    log::info!("cache hit for {}", &path);
+    log::debug!("cache hit for {}", &path);
     Some(data.unwrap().clone())
   }
   pub fn new(cap: usize) -> Self {

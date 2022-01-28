@@ -26,7 +26,7 @@ pub async fn preview(
     config.repo_path,
     param.path.trim_end_matches('/')
   );
-  log::debug!("{}", path);
+  log::debug!("reading {}", path);
   let file = cache.cached_get(path).await;
   if let Some(t) = file {
     let mut split_count: u32 = 0;
