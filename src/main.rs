@@ -3,15 +3,17 @@ use config::Config;
 use file_cache::FileCache;
 use warp::Filter;
 
-extern crate log;
-extern crate pretty_env_logger;
 mod api;
 mod config;
 mod file_cache;
 #[tokio::main]
 async fn main() {
-  pretty_env_logger::init();
+  env_logger::init_from_env(
+    env_logger::Env::default().filter_or(env_logger::DEFAULT_FILTER_ENV, "info"),
+  );
   let config: Config = config::Config::load(None).await.unwrap_or_default();
+  log::info!("oi_wiki_api now running!");
+  log::info!("{:#?}", config);
   let file_cache = FileCache::new(config.lru_cap);
   let file_cache_route = warp::any().map(move || file_cache.clone());
   let config_move = config.clone();
